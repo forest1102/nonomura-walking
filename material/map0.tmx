@@ -111,6 +111,5 @@
    </properties>
   </object>
   <object id="3" name="goMap1" x="304" y="64" width="16" height="32"/>
-  <!--テスト-->
  </objectgroup>
 </map>
