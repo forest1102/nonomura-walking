@@ -20,16 +20,15 @@ window.onload = function () {
           this.image = game.assets[tiled[i].image];
           this.loadData.apply(this, tiled[i].foreground);
         }
+      }),
+      TileMap = Class.create({
+        initialize: function (i) {
+          this.fore = new foreMap(i);
+          this.back = new backMap(i);
+        }
       });
-    var map = new backMap(0);
-
-    var foregroundMap = new foreMap(0);
-
-    var map2 = new backMap(1);
-
-    var foregroundMap2 = new foreMap(1);
-
-    var currentMap = map;
+    var maps=[new TileMap(0),new TileMap(1)];
+    var currentMap = maps[0].back;
 
     var Player = Class.create(Sprite, {
       initialize: function () {
@@ -87,49 +86,60 @@ window.onload = function () {
           }
         }
       }
+      
     });
 
     var player = new Player();
 
-    map.addEventListener('enterframe', function () {
+    maps[0].back.addEventListener('enterframe', function () {
       if (player.isMoving) {
         return;
       }
 
       if (player.intersect(tiled[0].object.goMap1)) {
         console.log('go map1');
-
         var stage2 = new Scene();
-
-
-        stage2.addChild(map2);
+        stage2.addChild(maps[1].back);
         stage2.addChild(player);
-        stage2.addChild(foregroundMap2);
+        stage2.addChild(maps[1].fore);
         stage2.addChild(pad);
-        currentMap = map2;
-
+        currentMap = maps[1].back;
         player.x = tiled[1].object.enterPoint1.x - 8;
         player.y = tiled[1].object.enterPoint1.y - 16;
-
         game.pushScene(stage2);
         game.current.addChild(stage);
       }
     });
-
+    maps[1].back.addEventListener('enterframe', function () {
+      if (player.isMoving) return;
+      if (player.intersect(tiled[1].object.goMap0)) {
+        var stage2 = new Scene();
+        stage2.addChild(maps[0].back);
+        stage2.addChild(player);
+        stage2.addChild(maps[0].fore);
+        stage2.addChild(pad);
+        currentMap = maps[0].back;
+        player.x = tiled[0].object.playerStartPoint.x - 8;
+        player.y = tiled[0].object.playerStartPoint.y - 16;
+        game.pushScene(stage2);
+        game.current.addChild(stage);
+      }
+    });
+    
     player.addEventListener('enterframe', function mapEvent() {
       if (player.isMoving) {
         return;
       }
 
       if (player.intersect(tiled[0].object.eventArea1)) {
-        document.title = tiled[0].object.eventArea1.message;
+        console.log(tiled[0].object.eventArea1.message);
       }
     });
 
     var stage = new Group();
-    stage.addChild(map);
+    stage.addChild(maps[0].back);
     stage.addChild(player);
-    stage.addChild(foregroundMap);
+    stage.addChild(maps[0].fore);
     game.rootScene.addChild(stage);
 
 

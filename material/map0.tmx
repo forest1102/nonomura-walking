@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="map1" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="map1" tilewidth="16" tileheight="16" tilecount="640" columns="20">
   <image source="map1.png" width="320" height="512"/>
  </tileset>
- <tileset firstgid="641" name="pad" tilewidth="16" tileheight="16">
+ <tileset firstgid="641" name="pad" tilewidth="16" tileheight="16" tilecount="72" columns="12">
   <image source="pad.png" width="200" height="100"/>
  </tileset>
  <layer name="タイル・レイヤー1" width="20" height="20">
@@ -102,14 +102,15 @@
 59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59
 </data>
  </layer>
- <objectgroup name="オブジェクト・レイヤー 1" width="20" height="20">
-  <object name="playerStartPoint" x="192" y="64" width="16" height="16"/>
-  <object name="eventArea1" type="ほげ" x="224" y="160" width="64" height="48">
+ <objectgroup name="オブジェクト・レイヤー 1">
+  <object id="1" name="playerStartPoint" x="32" y="64" width="16" height="16"/>
+  <object id="2" name="eventArea1" type="ほげ" x="224" y="160" width="64" height="48">
    <properties>
     <property name="func" value="function(){alert('hoge');}"/>
     <property name="message" value="イベントエリアに入りました"/>
    </properties>
   </object>
-  <object name="goMap1" x="304" y="64" width="16" height="32"/>
+  <object id="3" name="goMap1" x="304" y="64" width="16" height="32"/>
+  <!--テスト-->
  </objectgroup>
 </map>
