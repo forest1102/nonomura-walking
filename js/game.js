@@ -184,7 +184,7 @@ window.onload = function () {
         initialize: function () {
           Scene.call(this);
           this.backgroundColor = 'black';
-
+          
         }
       });
     var titleScene = new TitleScene();
